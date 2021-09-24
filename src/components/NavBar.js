@@ -1,20 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {Navbar, Container, Nav} from 'react-bootstrap';
 
 export const NavBar = ( {toggleCategory} ) => {
 
-    
+    const [expanded, setExpanded] = useState(false);
+
     const handleClickCategory = ( category ) => {
        toggleCategory(category);
+       setExpanded(false)
+       window.scrollTo(0,0);
     }
 
     return (
         <>
-            <Navbar bg="dark" variant="dark" expand="sm" sticky="top" >
+            <Navbar bg="dark" variant="dark" expand="sm" sticky="top" expanded={expanded}>
                 <Container fluid>
-                    {/* <Navbar.Brand>News API</Navbar.Brand> */}
 
-                    <Navbar bg="dark" variant="dark">
+                    <Navbar bg="dark" variant="dark" >
                         <Container>
                         <Navbar.Brand>
                             <img
@@ -29,10 +31,10 @@ export const NavBar = ( {toggleCategory} ) => {
                         </Container>
                     </Navbar>
 
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                    <Navbar.Collapse id="basic-navbar-nav" className="navbar navbar-expand-sm bg-dark navbar-dark">
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" onClick={() => setExpanded(expanded ? false : "expanded")}/>
+                    <Navbar.Collapse id="basic-navbar-nav" className="navbar navbar-expand-sm bg-dark navbar-dark" >
                     <Nav>
-                        <Nav.Link onClick = { () => handleClickCategory(0)}>Inicio</Nav.Link>
+                        <Nav.Link onClick = { () => handleClickCategory(0) }>Inicio</Nav.Link>
                         <Nav.Link onClick = { () => handleClickCategory(1) }>Economía</Nav.Link>
                         <Nav.Link onClick = { () => handleClickCategory(2) }>Entretenimiento</Nav.Link>
                         <Nav.Link onClick = { () => handleClickCategory(3) }>Negocios</Nav.Link>
